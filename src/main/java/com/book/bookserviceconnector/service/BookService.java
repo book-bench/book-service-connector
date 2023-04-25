@@ -2,7 +2,6 @@ package com.book.bookserviceconnector.service;
 
 import com.book.bookserviceconnector.model.Book;
 import com.book.bookserviceconnector.model.ResponseFromBookService;
-import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
@@ -10,9 +9,15 @@ import java.util.List;
 
 public class BookService {
 
+    WebClient webClient;
+
+    public BookService(WebClient webClient) {
+        this.webClient = webClient;
+    }
+
     public List<Book> getAvailableBooks() {
-        WebClient client = WebClient.create("http://localhost:8080");
-        ResponseFromBookService response = client
+
+        ResponseFromBookService response = webClient
                 .get()
                 .uri("/books")
                 .retrieve()
@@ -21,5 +26,23 @@ public class BookService {
 
         return response.getBooks();
     }
+
+    public Book getBookById(int id) {
+
+        String path = "/books/" + id;
+
+        ResponseFromBookService response =  webClient
+                .get()
+                .uri(path)
+                .retrieve()
+                .bodyToMono(ResponseFromBookService.class)
+                .block();
+
+        return response.getBooks().get(0);
+    }
+
+
+
+
 
 }
