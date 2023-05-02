@@ -1,10 +1,8 @@
 package com.book.bookserviceconnector.service;
 
-import com.book.bookserviceconnector.model.Book;
 import com.book.bookserviceconnector.model.ResponseFromBookService;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.List;
 
 
 public class BookService {
@@ -15,30 +13,26 @@ public class BookService {
         this.webClient = webClient;
     }
 
-    public List<Book> getAvailableBooks() {
+    public ResponseFromBookService getAvailableBooks() {
 
-        ResponseFromBookService response = webClient
+        return webClient
                 .get()
                 .uri("/books")
                 .retrieve()
                 .bodyToMono(ResponseFromBookService.class)
                 .block();
-
-        return response.getBooks();
     }
 
-    public Book getBookById(int id) {
+    public ResponseFromBookService getBookById(int id) {
 
         String path = "/books/" + id;
 
-        ResponseFromBookService response =  webClient
+        return webClient
                 .get()
                 .uri(path)
                 .retrieve()
                 .bodyToMono(ResponseFromBookService.class)
                 .block();
-
-        return response.getBooks().get(0);
     }
 
 
