@@ -1,17 +1,23 @@
 package com.book.bookserviceconnector;
 
-import com.book.bookserviceconnector.model.Book;
-import com.book.bookserviceconnector.model.ResponseFromBookService;
+import com.book.bookserviceconnector.service.BookService;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.context.annotation.Bean;
 
-import java.util.List;
 
 @SpringBootApplication
 public class BookServiceConnectorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BookServiceConnectorApplication.class, args);	}
+		SpringApplication.run(BookServiceConnectorApplication.class, args);
+
+	}
+
+	@Bean
+	ApplicationRunner applicationRunner(BookService bookService) {
+		return args -> bookService.getAvailableBooks().getBooks().forEach(System.out::println);
+	}
 
 }

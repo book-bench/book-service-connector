@@ -1,39 +1,21 @@
 package com.book.bookserviceconnector.service;
 
 import com.book.bookserviceconnector.model.ResponseFromBookService;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.service.annotation.GetExchange;
+import org.springframework.web.service.annotation.HttpExchange;
 
 
+@HttpExchange("/books")
+public interface BookService {
 
-public class BookService {
+    @GetExchange
+    ResponseFromBookService getAvailableBooks();
 
-    WebClient webClient;
+    @GetExchange("/{id}")
+    ResponseFromBookService getBookById(@RequestParam int id);
 
-    public BookService(WebClient webClient) {
-        this.webClient = webClient;
-    }
 
-    public ResponseFromBookService getAvailableBooks() {
-
-        return webClient
-                .get()
-                .uri("/books")
-                .retrieve()
-                .bodyToMono(ResponseFromBookService.class)
-                .block();
-    }
-
-    public ResponseFromBookService getBookById(int id) {
-
-        String path = "/books/" + id;
-
-        return webClient
-                .get()
-                .uri(path)
-                .retrieve()
-                .bodyToMono(ResponseFromBookService.class)
-                .block();
-    }
 
 
 
