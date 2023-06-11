@@ -17,7 +17,7 @@ public class BookServiceConnectorApplication {
 
 	@Bean
 	ApplicationRunner applicationRunner(BookService bookService) {
-		return args -> bookService.getAvailableBooks().getBooks().forEach(System.out::println);
+		return args -> bookService.getBookById(1).getBooks().forEach(System.out::println);
 	}
 
 }
