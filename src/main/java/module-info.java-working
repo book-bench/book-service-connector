@@ -1,0 +1,32 @@
+open module book.connector {
+    requires transitive spring.context;
+    requires transitive spring.beans;
+    requires transitive spring.webflux;
+    requires transitive spring.web;
+    requires transitive spring.boot;
+    requires transitive spring.boot.autoconfigure;
+    requires transitive spring.boot.starter;
+    requires transitive spring.boot.starter.json;
+    requires transitive spring.boot.starter.logging;
+    requires transitive spring.boot.starter.reactor.netty;
+    requires transitive spring.boot.starter.tomcat;
+    requires transitive spring.boot.starter.validation;
+    requires transitive spring.boot.starter.web;
+    requires transitive spring.boot.starter.webflux;
+    requires transitive spring.aop;
+    requires transitive spring.core;
+    requires transitive spring.expression;
+    requires transitive spring.jcl;
+    requires transitive spring.webmvc;
+
+    requires org.apache.tomcat.embed.core;   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    requires org.yaml.snakeyaml;
+//    requires org.xmlunit;
+
+    requires com.fasterxml.jackson.annotation;
+    requires com.fasterxml.jackson.core;  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    exports com.book.bookserviceconnector.service;
+    exports com.book.bookserviceconnector.model;
+
+}
