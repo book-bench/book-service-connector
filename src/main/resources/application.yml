@@ -1,5 +1,0 @@
-server:
-  port: 8089
-
-web-client:
-  base-url: http://localhost:8081
